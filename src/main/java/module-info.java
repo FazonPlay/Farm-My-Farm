@@ -4,5 +4,5 @@ module com.fazonplay.farmmyfarm.farmmyfarm {
 
 
     opens com.fazonplay.farmmyfarm to javafx.fxml;
-    exports com.fazonplay.farmmyfarm;
+    exports com.fazonplay.farmmyfarm.Application;
 }
