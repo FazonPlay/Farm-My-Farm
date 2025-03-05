@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="com.obiscr.chatgpt.settings.EasyCodeState">
+    <option name="projectFiles" value="$PROJECT_DIR$/src/main/java/com/fazonplay/farmmyfarm/Application/Game.java;C:/Users/david/IdeaProjects/Farm my Farm/src/main/java/com/fazonplay/farmmyfarm/Controllers/GameController.java;C:/Users/david/IdeaProjects/Farm my Farm/src/main/java/com/fazonplay/farmmyfarm/Models/Animal.java;C:/Users/david/IdeaProjects/Farm my Farm/src/main/java/com/fazonplay/farmmyfarm/Models/Crop.java;C:/Users/david/IdeaProjects/Farm my Farm/src/main/java/com/fazonplay/farmmyfarm/Models/Farm.java;C:/Users/david/IdeaProjects/Farm my Farm/src/main/java/com/fazonplay/farmmyfarm/Models/FinanceManager.java;C:/Users/david/IdeaProjects/Farm my Farm/src/main/java/com/fazonplay/farmmyfarm/Models/Store.java;C:/Users/david/IdeaProjects/Farm my Farm/src/main/java/com/fazonplay/farmmyfarm/Services/GrowthTimer.java;C:/Users/david/IdeaProjects/Farm my Farm/src/main/java/com/fazonplay/farmmyfarm/Services/SaveLoadManager.java;C:/Users/david/IdeaProjects/Farm my Farm/src/main/java/module-info.java" />
+  </component>
+</project>
