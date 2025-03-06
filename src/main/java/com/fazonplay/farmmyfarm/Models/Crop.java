@@ -30,14 +30,13 @@ public class Crop {
         this.growthTime = growthTime;
         this.state = CropState.EMPTY;
     }
-
     public void plant() {
         this.plantedTime = LocalDateTime.now();
         this.state = CropState.SEEDS;
     }
 
     public boolean isReadyToHarvest() {
-        if (state != CropState.SEEDS) return false;
+        if (plantedTime == null) return false;
 
         LocalDateTime currentTime = LocalDateTime.now();
         return plantedTime.plusMinutes(growthTime).isBefore(currentTime);

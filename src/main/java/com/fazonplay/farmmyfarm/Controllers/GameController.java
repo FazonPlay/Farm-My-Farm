@@ -1,6 +1,7 @@
 package com.fazonplay.farmmyfarm.Controllers;
 
 import com.fazonplay.farmmyfarm.Models.*;
+import com.fazonplay.farmmyfarm.Services.GrowthTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -29,6 +30,8 @@ public class GameController {
     private Store store;
     private Button[][] gridButtons;
     private Map<Button, PlotState> plotStates;
+    private GrowthTimer growthTimer;
+    private Map<Button, Crop> growingCrops;
 
     private class PlotState {
         Crop crop;
@@ -50,6 +53,7 @@ public class GameController {
         store = new Store(financeManager);
         gridButtons = new Button[GRID_SIZE][GRID_SIZE];
         plotStates = new HashMap<>();
+        growingCrops = new HashMap<>();
 
         // Add some seeds to inventory for testing
         inventory.addSeed("Wheat", 5);
@@ -57,6 +61,8 @@ public class GameController {
         // Setup grid
         setupFarmGrid();
         updateBalanceDisplay();
+
+        growthTimer = new GrowthTimer(growingCrops);
     }
 
     private void setupFarmGrid() {
@@ -112,18 +118,24 @@ public class GameController {
             PlotState state = plotStates.get(plotButton);
             state.crop = newCrop;
 
+            growingCrops.put(plotButton, newCrop);
+
             inventory.removeSeed(seedName, 1);
             plotButton.setStyle("-fx-background-color: #8B4513; -fx-border-color: #999999;"); // Brown for planted
+
 
             showMessage("Planted", "You planted a " + seedName + " seed!");
         }
     }
 
-    private void harvestCrop(Button plotButton, int row, int col) {
+    public void harvestCrop(Button plotButton, int row, int col) {
         PlotState state = plotStates.get(plotButton);
-        if (state.crop != null && state.crop.isReadyToHarvest()) {
+        if (state.crop != null && state.crop.getState() == Crop.CropState.MATURE) {
             inventory.addCrop(state.crop.getName(), 1);
             plotButton.setStyle("-fx-background-color: #cccccc; -fx-border-color: #999999;"); // Reset to empty
+
+            // Remove from growing crops map
+            growingCrops.remove(plotButton);
 
             showMessage("Harvested", "You harvested a " + state.crop.getName() + "!");
             state.crop = null;
@@ -173,6 +185,7 @@ public class GameController {
     // Method to be called from other controllers (like StoreController)
     public void refreshGameState() {
         updateBalanceDisplay();
+
         // Could add more refresh logic here as game expands
     }
 
@@ -182,5 +195,10 @@ public class GameController {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+    public void shutdown() {
+        if (growthTimer != null) {
+            growthTimer.shutdown();
+        }
     }
 }

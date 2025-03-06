@@ -19,9 +19,10 @@ public class GrowthTimer {
 
         // Check crops growth status every 30 seconds
         scheduler.scheduleAtFixedRate(this::checkCrops, 30, 30, TimeUnit.SECONDS);
+
     }
 
-    private void checkCrops() {
+    public void checkCrops() {
         Platform.runLater(() -> {
             for (Map.Entry<Button, Crop> entry : growingCrops.entrySet()) {
                 Button plotButton = entry.getKey();

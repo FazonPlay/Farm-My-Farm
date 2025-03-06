@@ -14,9 +14,9 @@ public class Store {
 
     private void initializeSeeds() {
         availableSeeds = new HashMap<>();
-        availableSeeds.put("Wheat", new Crop("Wheat", 10, 25, 5));
-        availableSeeds.put("Corn", new Crop("Corn", 15, 35, 7));
-        availableSeeds.put("Carrot", new Crop("Carrot", 8, 20, 4));
+        availableSeeds.put("Wheat", new Crop("Wheat", 10, 25, 1));
+        availableSeeds.put("Corn", new Crop("Corn", 15, 35, 1));
+        availableSeeds.put("Carrot", new Crop("Carrot", 8, 20, 1));
     }
 
     public boolean buySeed(String seedName, Inventory inventory) {

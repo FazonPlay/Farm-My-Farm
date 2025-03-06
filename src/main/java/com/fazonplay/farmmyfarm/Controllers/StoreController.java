@@ -69,7 +69,6 @@ public class StoreController {
         boolean success = store.buySeed(seedName, inventory);
 
         if (success) {
-            showMessage("Purchase Successful", "You bought " + seedName + " seeds!");
             updateDisplay();
             gameController.refreshGameState();
         } else {
