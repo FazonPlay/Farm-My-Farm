@@ -7,11 +7,11 @@ public class Crop {
     private String name;
     private double seedCost;
     private double sellPrice;
-    private int growthTime; // in minutes
+    private double growthTime; // in minutes
     private LocalDateTime plantedTime;
     private CropState state;
 
-    public int getGrowthTime() {
+    public double getGrowthTime() {
         return growthTime;
     }
 
@@ -23,7 +23,7 @@ public class Crop {
         WITHERED     // Crop has gone bad
     }
 
-    public Crop(String name, double seedCost, double sellPrice, int growthTime) {
+    public Crop(String name, double seedCost, double sellPrice, double growthTime) {
         this.name = name;
         this.seedCost = seedCost;
         this.sellPrice = sellPrice;
@@ -39,7 +39,7 @@ public class Crop {
         if (plantedTime == null) return false;
 
         LocalDateTime currentTime = LocalDateTime.now();
-        return plantedTime.plusMinutes(growthTime).isBefore(currentTime);
+        return plantedTime.plusSeconds((long)(growthTime * 60)).isBefore(currentTime);
     }
 
     // Getters and setters

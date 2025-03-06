@@ -18,7 +18,7 @@ public class GrowthTimer {
         this.scheduler = Executors.newScheduledThreadPool(1);
 
         // Check crops growth status every 30 seconds
-        scheduler.scheduleAtFixedRate(this::checkCrops, 30, 30, TimeUnit.SECONDS);
+        scheduler.scheduleAtFixedRate(this::checkCrops, 3, 3, TimeUnit.SECONDS);
 
     }
 
@@ -28,12 +28,13 @@ public class GrowthTimer {
                 Button plotButton = entry.getKey();
                 Crop crop = entry.getValue();
 
-                if (crop != null && crop.getState() == Crop.CropState.SEEDS && crop.isReadyToHarvest()) {
+                if (crop != null && (crop.getState() == Crop.CropState.SEEDS ||
+                        crop.getState() == Crop.CropState.GROWING) &&
+                        crop.isReadyToHarvest()) {
                     // Crop is now ready to harvest
                     crop.setState(Crop.CropState.MATURE);
-
                     // Update the UI to show the crop is ready
-                    plotButton.setStyle("-fx-background-color: #7CFC00; -fx-border-color: #999999;");  // Green for ready to harvest
+                    plotButton.setStyle("-fx-background-color: #7CFC00; -fx-border-color: #999999;");
                 }
             }
         });

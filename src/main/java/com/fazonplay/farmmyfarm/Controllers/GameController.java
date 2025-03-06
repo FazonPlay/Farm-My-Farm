@@ -11,6 +11,9 @@ import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.stage.Modality;
+import javafx.geometry.Insets;
+
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -89,17 +92,8 @@ public class GameController {
         PlotState state = plotStates.get(plotButton);
 
         if (state.crop == null) {
-            // Empty plot - show planting options if we have seeds
-            if (inventory.getSeeds().isEmpty()) {
-                showMessage("No seeds", "You don't have any seeds. Visit the store to buy some!");
-            } else {
-                // For simplicity, just plant wheat if we have it
-                if (inventory.getSeeds().containsKey("Wheat") && inventory.getSeeds().get("Wheat") > 0) {
-                    plantSeed(plotButton, row, col, "Wheat");
-                } else {
-                    showMessage("No wheat seeds", "You don't have any wheat seeds left.");
-                }
-            }
+            // Empty plot - show seed planting options
+            showSeedPlantingOptions(plotButton, row, col);
         } else if (state.crop.isReadyToHarvest()) {
             // Ready to harvest
             harvestCrop(plotButton, row, col);
@@ -107,6 +101,50 @@ public class GameController {
             // Growing
             showMessage("Growing", "This crop is still growing. Please check back later.");
         }
+    }
+
+    private void showSeedPlantingOptions(Button plotButton, int row, int col) {
+        // Only show options if player has seeds
+        Map<String, Integer> availableSeeds = inventory.getSeeds();
+        if (availableSeeds.isEmpty()) {
+            showMessage("No Seeds", "You don't have any seeds to plant. Visit the store to buy some.");
+            return;
+        }
+
+        // Create a dialog with buttons for each seed type
+        Stage dialog = new Stage();
+        dialog.setTitle("Plant Seeds");
+        dialog.initModality(Modality.APPLICATION_MODAL);
+
+        GridPane seedOptions = new GridPane();
+        seedOptions.setHgap(10);
+        seedOptions.setVgap(10);
+        seedOptions.setPadding(new Insets(10));
+
+        int seedRow = 0;
+        for (Map.Entry<String, Integer> entry : availableSeeds.entrySet()) {
+            String seedName = entry.getKey();
+            Integer quantity = entry.getValue();
+
+            if (quantity > 0) {
+                seedOptions.add(new Label(seedName + " (" + quantity + ")"), 0, seedRow);
+                Button plantButton = new Button("Plant");
+                plantButton.setOnAction(e -> {
+                    plantSeed(plotButton, row, col, seedName);
+                    dialog.close();
+                });
+                seedOptions.add(plantButton, 1, seedRow);
+                seedRow++;
+            }
+        }
+
+        Button cancelButton = new Button("Cancel");
+        cancelButton.setOnAction(e -> dialog.close());
+        seedOptions.add(cancelButton, 0, seedRow, 2, 1);
+
+        Scene scene = new Scene(seedOptions);
+        dialog.setScene(scene);
+        dialog.showAndWait();
     }
 
     private void plantSeed(Button plotButton, int row, int col, String seedName) {
