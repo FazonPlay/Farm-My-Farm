@@ -22,7 +22,7 @@ public class Game extends Application {
 
         stage.setTitle("I like broly");
         stage.setWidth(1024);
-        stage.setHeight(1024);
+        stage.setHeight(768);
 
 
         stage.setScene(new Scene(fxmlLoader.load()));

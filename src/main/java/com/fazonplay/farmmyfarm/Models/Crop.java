@@ -11,6 +11,10 @@ public class Crop {
     private LocalDateTime plantedTime;
     private CropState state;
 
+    public int getGrowthTime() {
+        return growthTime;
+    }
+
     public enum CropState {
         EMPTY,       // No crop planted
         SEEDS,       // Just planted
