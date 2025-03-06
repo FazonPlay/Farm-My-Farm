@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Button?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.fazonplay.farmmyfarm.Controllers.AnimalController"
+      spacing="10" style="-fx-padding: 15;">
+
+    <Label text="Animal Shop"/>
+
+    <Label text="Balance: "/>
+    <Label fx:id="balanceLabel" text="0.00"/>
+
+    <GridPane fx:id="animalsGrid" hgap="10" vgap="5">
+        <!-- Animal shop items will be added programmatically -->
+    </GridPane>
+
+    <Button text="Close" onAction="#onClose"/>
+</VBox>

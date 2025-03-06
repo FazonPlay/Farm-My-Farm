@@ -26,6 +26,13 @@
     <GridPane fx:id="farmGrid" hgap="5" vgap="5" alignment="CENTER">
         <!-- Grid will be populated programmatically -->
     </GridPane>
+    <!-- Add this grid for animal pens -->
+    <GridPane fx:id="animalPensGrid" hgap="10" vgap="10" style="-fx-padding: 15;">
+        <!-- Animal pens will be added programmatically -->
+    </GridPane>
+
+    <!-- Add a button to open the animal shop -->
+    <Button text="Animal Shop" onAction="#openAnimalShop"/>
 
     <HBox spacing="10" alignment="CENTER">
         <Button text="Buy Seeds" onAction="#openSeedStore"/>

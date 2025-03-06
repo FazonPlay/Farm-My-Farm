@@ -1,6 +1,7 @@
 package com.fazonplay.farmmyfarm.Controllers;
 
 import com.fazonplay.farmmyfarm.Models.*;
+import com.fazonplay.farmmyfarm.Services.AnimalTimer;
 import com.fazonplay.farmmyfarm.Services.GrowthTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -49,6 +50,11 @@ public class GameController {
     }
 
     @FXML
+    private GridPane animalPensGrid;
+    private Button[] animalPens;
+    private AnimalTimer animalTimer;
+
+    @FXML
     public void initialize() {
         // Initialize game components
         financeManager = new FinanceManager(500); // Starting balance
@@ -64,9 +70,12 @@ public class GameController {
         // Setup grid
         setupFarmGrid();
         updateBalanceDisplay();
+        setupAnimalPens();
+        animalTimer = new AnimalTimer(inventory.getOwnedAnimals());
 
         growthTimer = new GrowthTimer(growingCrops);
     }
+
 
     private void setupFarmGrid() {
         for (int row = 0; row < GRID_SIZE; row++) {
@@ -183,7 +192,103 @@ public class GameController {
     private void updateBalanceDisplay() {
         balanceLabel.setText(String.format("$%.2f", financeManager.getBalance()));
     }
+    private void setupAnimalPens() {
+        animalPens = new Button[3]; // Creating 3 animal pens
 
+        for (int i = 0; i < animalPens.length; i++) {
+            Button penButton = new Button("Empty Pen");
+            penButton.setPrefSize(100, 100);
+            penButton.setStyle("-fx-background-color: #DDDDDD; -fx-border-color: #999999;");
+
+            final int penIndex = i;
+            penButton.setOnAction(event -> handleAnimalPenClick(penButton));
+
+            animalPensGrid.add(penButton, i, 0);
+            animalPens[i] = penButton;
+        }
+    }
+    private void handleAnimalPenClick(Button penButton) {
+        Animal animal = inventory.getAnimal(penButton);
+
+        if (animal == null) {
+            showMessage("Empty Pen", "This pen is empty. Visit the animal shop to buy animals.");
+        } else if (animal.isReadyToCollect()) {
+            // Collect products from animal
+            animal.collect();
+
+            String productName = productNameForAnimal(animal.getType());
+            inventory.addAnimalProduct(productName, 1);
+
+            showMessage("Collected Product", "You collected " + productName + " from your " + animal.getType() + "!");
+
+            // Update button color
+            updateAnimalPenColor(penButton, animal);
+        } else {
+            // Show status
+            showMessage("Not Ready", "Your " + animal.getType() + " is not ready to produce yet.");
+        }
+    }
+
+    private String productNameForAnimal(String animalType) {
+        switch(animalType) {
+            case "Chicken": return "Egg";
+            case "Cow": return "Milk";
+            case "Sheep": return "Wool";
+            default: return "Product";
+        }
+    }
+
+    public void addAnimalToPen(String animalType) {
+        // Find empty pen
+        for (Button pen : animalPens) {
+            if (inventory.getAnimal(pen) == null) {
+                Animal animal = new Animal(animalType, 0, 0, 0); // Values don't matter, just for display
+                switch (animalType) {
+                    case "Chicken":
+                        animal = new Animal("Chicken", 50, 8, 0.5);
+                        break;
+                    case "Cow":
+                        animal = new Animal("Cow", 200, 25, 1.0);
+                        break;
+                    case "Sheep":
+                        animal = new Animal("Sheep", 150, 15, 0.75);
+                        break;
+                }
+
+                inventory.addAnimal(pen, animal);
+                pen.setText(animalType);
+                pen.setStyle("-fx-background-color: #90EE90; -fx-border-color: #999999;"); // Green for idle
+                return;
+            }
+        }
+        showMessage("No Space", "All your animal pens are full!");
+    }
+
+    private void updateAnimalPenColor(Button penButton, Animal animal) {
+        if (animal.isReadyToCollect()) {
+            penButton.setStyle("-fx-background-color: #7CFC00; -fx-border-color: #999999;"); // Bright green for ready
+        } else {
+            penButton.setStyle("-fx-background-color: #90EE90; -fx-border-color: #999999;"); // Light green for idle
+        }
+    }
+
+    @FXML
+    public void openAnimalShop() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/fazonplay/farmmyfarm/animalShop.fxml"));
+            Stage animalShopStage = new Stage();
+            animalShopStage.setTitle("Animal Shop");
+            animalShopStage.setScene(new Scene(loader.load(), 400, 300));
+
+            AnimalController animalShopController = loader.getController();
+            animalShopController.initData(store, inventory, financeManager, this);
+
+            animalShopStage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            showMessage("Error", "Could not open the animal shop: " + e.getMessage());
+        }
+    }
     @FXML
     public void openSeedStore() {
         try {

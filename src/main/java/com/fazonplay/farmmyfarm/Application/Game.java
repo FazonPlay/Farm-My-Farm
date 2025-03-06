@@ -4,12 +4,9 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 
 public class Game extends Application {
-
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -23,8 +20,6 @@ public class Game extends Application {
         stage.setTitle("I like broly");
         stage.setWidth(1024);
         stage.setHeight(768);
-
-
         stage.setScene(new Scene(fxmlLoader.load()));
         stage.show();
     }
