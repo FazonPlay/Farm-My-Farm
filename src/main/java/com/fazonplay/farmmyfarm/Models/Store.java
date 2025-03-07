@@ -23,9 +23,9 @@ public class Store {
 
     private void initializeAnimals() {
         availableAnimals = new HashMap<>();
-        availableAnimals.put("Chicken", new Animal("Chicken", 20, 5, 0.10));
-        availableAnimals.put("Cow", new Animal("Cow", 50, 10, 0.25));
-        availableAnimals.put("Sheep", new Animal("Sheep", 30, 7, 1.5));
+        availableAnimals.put("Chicken", new Animal("Chicken", 50, 8, 0.5));
+        availableAnimals.put("Cow", new Animal("Cow", 100, 20, 1.0));
+        availableAnimals.put("Sheep", new Animal("Sheep", 70, 15, 0.75));
     }
 
     public boolean buySeed(String seedName, Inventory inventory) {

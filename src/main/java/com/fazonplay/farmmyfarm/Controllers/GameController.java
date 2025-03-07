@@ -312,16 +312,19 @@ public class GameController {
     public void addAnimalToPen(String animalType) {
         for (Button pen : animalPens) {
             if (inventory.getAnimal(pen) == null) {
-                Animal animal = new Animal(animalType, 0, 0, 0); // Values don't matter, just for display
+                Animal animal = new Animal(animalType, 0, 0, 0); // for display
                 switch (animalType) {
                     case "Chicken":
                         animal = new Animal("Chicken", 50, 8, 0.5);
                         break;
                     case "Cow":
-                        animal = new Animal("Cow", 200, 25, 1.0);
+                        animal = new Animal("Cow", 100, 20, 1.0);
                         break;
                     case "Sheep":
-                        animal = new Animal("Sheep", 150, 15, 0.75);
+                        animal = new Animal("Sheep", 70, 15, 0.75);
+                        break;
+                    default:
+                        animal = new Animal(animalType, 0, 0, 0);
                         break;
                 }
 

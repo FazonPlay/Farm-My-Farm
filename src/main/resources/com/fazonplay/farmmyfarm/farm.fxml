@@ -32,10 +32,10 @@
     </GridPane>
 
     <!-- Add a button to open the animal shop -->
-    <Button text="Animal Shop" onAction="#openAnimalShop"/>
+    <Button text="Animal Store" onAction="#openAnimalShop"/>
 
     <HBox spacing="10" alignment="CENTER">
-        <Button text="Buy Seeds" onAction="#openSeedStore"/>
-        <Button text="Sell Crops" onAction="#openCropSellStore"/>
+        <Button text="Seed Store" onAction="#openSeedStore"/>
+        <Button text="Sell" onAction="#openCropSellStore"/>
     </HBox>
 </VBox>

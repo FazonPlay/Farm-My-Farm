@@ -26,22 +26,19 @@
         <Label text="Growth Time" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
         <Label text="Actions" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
 
-        <!-- Wheat -->
         <Label text="Wheat" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-        <Label text="10.00" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
-        <Label text="5 min" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+        <Label text="5.00" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+        <Label text="15 sec" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
         <Button text="Buy" onAction="#onBuyWheat" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
 
-        <!-- Corn -->
         <Label text="Corn" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-        <Label text="15.00" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
-        <Label text="7 min" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+        <Label text="7.00" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+        <Label text="30 sec" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
         <Button text="Buy" onAction="#onBuyCorn" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
 
-        <!-- Carrot -->
         <Label text="Carrot" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-        <Label text="8.00" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
-        <Label text="4 min" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
+        <Label text="10.00" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+        <Label text="6 sec" GridPane.rowIndex="3" GridPane.columnIndex="2"/>
         <Button text="Buy" onAction="#onBuyCarrot" GridPane.rowIndex="3" GridPane.columnIndex="3"/>
     </GridPane>
 
