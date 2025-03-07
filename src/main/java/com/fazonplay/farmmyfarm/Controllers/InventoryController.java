@@ -20,6 +20,9 @@ public class InventoryController {
     @FXML
     private GridPane cropsGrid;
 
+    @FXML
+    private GridPane animalProductsGrid;
+
     private Inventory inventory;
     private Store store;
     private FinanceManager financeManager;
@@ -40,6 +43,7 @@ public class InventoryController {
         // Clear existing grid items
         clearGridRows(seedsGrid, 1);
         clearGridRows(cropsGrid, 1);
+        clearGridRows(animalProductsGrid, 1);
 
         // Populate Seeds Tab
         int seedRow = 1;
@@ -68,6 +72,53 @@ public class InventoryController {
 
             cropsGrid.add(sellButton, 3, cropRow);
             cropRow++;
+        }
+
+        int productRow = 1;
+        for (Map.Entry<String, Integer> entry : inventory.getAnimalProducts().entrySet()) {
+            String productName = entry.getKey();
+            int quantity = entry.getValue();
+
+            double sellPrice = getAnimalProductPrice(productName);
+
+            animalProductsGrid.add(new Label(productName), 0, productRow);
+            animalProductsGrid.add(new Label(Integer.toString(quantity)), 1, productRow);
+            animalProductsGrid.add(new Label(String.format("$%.2f", sellPrice)), 2, productRow);
+
+            Button sellButton = new Button("Sell");
+            final String finalProductName = productName;
+            sellButton.setOnAction(event -> sellAnimalProduct(finalProductName));
+
+            animalProductsGrid.add(sellButton, 3, productRow);
+            productRow++;
+
+
+
+        }
+    }
+
+    private void sellAnimalProduct(String productName) {
+        if (inventory.getAnimalProducts().getOrDefault(productName, 0) > 0) {
+            // Remove from inventory
+            inventory.getAnimalProducts().put(productName,
+                    inventory.getAnimalProducts().get(productName) - 1);
+
+            // Add money to balance
+            financeManager.addMoney(getAnimalProductPrice(productName));
+
+            showMessage("Sale Successful", "You sold 1 " + productName + "!");
+            updateDisplay();
+            gameController.refreshGameState();
+        } else {
+            showMessage("Error", "You don't have any " + productName + " to sell!");
+        }
+    }
+    private double getAnimalProductPrice(String productName) {
+        switch (productName) {
+            case "Egg": return 5.0;
+            case "Milk": return 10.0;
+            case "Wool": return 7.0;
+            default: return 3.0;
         }
     }
 

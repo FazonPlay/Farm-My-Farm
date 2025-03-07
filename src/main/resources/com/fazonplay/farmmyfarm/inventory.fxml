@@ -29,7 +29,6 @@
                 <GridPane fx:id="seedsGrid" hgap="10" vgap="5">
                     <Label text="Seed" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                     <Label text="Quantity" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
-                    <!-- Seed inventory will be populated dynamically -->
                 </GridPane>
             </VBox>
         </Tab>
@@ -42,7 +41,18 @@
                     <Label text="Quantity" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
                     <Label text="Sell Price" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
                     <Label text="Actions" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
-                    <!-- Crop inventory will be populated dynamically -->
+                </GridPane>
+            </VBox>
+        </Tab>
+
+        <Tab text="Animal Products" closable="false">
+            <VBox spacing="10" style="-fx-padding: 10;">
+                <Label text="Your Animal Products:" style="-fx-font-weight: bold;"/>
+                <GridPane fx:id="animalProductsGrid" hgap="10" vgap="5">
+                    <Label text="Product" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <Label text="Quantity" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    <Label text="Sell Price" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <Label text="Actions" style="-fx-font-weight: bold;" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
                 </GridPane>
             </VBox>
         </Tab>

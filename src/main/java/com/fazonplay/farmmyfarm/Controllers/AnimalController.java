@@ -64,10 +64,10 @@ public class AnimalController {
         boolean success = store.buyAnimal(animalType);
 
         if (success) {
-            showMessage("Purchase Successful", "You bought a " + animalType + "!");
             gameController.addAnimalToPen(animalType);
             updateDisplay();
             gameController.refreshGameState();
+            showMessage("Purchase Successful", "You bought a " + animalType + "!");
         } else {
             showMessage("Purchase Failed", "You don't have enough money!");
         }
