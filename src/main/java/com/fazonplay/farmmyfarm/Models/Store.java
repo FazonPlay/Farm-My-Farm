@@ -16,15 +16,15 @@ public class Store {
 
     private void initializeSeeds() {
         availableSeeds = new HashMap<>();
-        availableSeeds.put("Wheat", new Crop("Wheat", 10, 25, 0.25));
-        availableSeeds.put("Corn", new Crop("Corn", 15, 35, 0.5));
-        availableSeeds.put("Carrot", new Crop("Carrot", 8, 20, 0.1));
+        availableSeeds.put("Wheat", new Crop("Wheat", 5, 13, 0.25));
+        availableSeeds.put("Corn", new Crop("Corn", 7, 10, 0.5));
+        availableSeeds.put("Carrot", new Crop("Carrot", 3, 7, 0.1));
     }
 
     private void initializeAnimals() {
         availableAnimals = new HashMap<>();
-        availableAnimals.put("Chicken", new Animal("Chicken", 20, 5, 1));
-        availableAnimals.put("Cow", new Animal("Cow", 50, 10, 2));
+        availableAnimals.put("Chicken", new Animal("Chicken", 20, 5, 0.10));
+        availableAnimals.put("Cow", new Animal("Cow", 50, 10, 0.25));
         availableAnimals.put("Sheep", new Animal("Sheep", 30, 7, 1.5));
     }
 
@@ -45,7 +45,7 @@ public class Store {
             return false;
         if(financeManager.canAfford(animal.getPurchaseCost())) {
             financeManager.deductMoney(animal.getPurchaseCost());
-            return true; 
+            return true;
         }
         return false;
     }

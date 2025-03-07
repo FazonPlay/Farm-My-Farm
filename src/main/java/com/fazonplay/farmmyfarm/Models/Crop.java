@@ -16,11 +16,10 @@ public class Crop {
     }
 
     public enum CropState {
-        EMPTY,       // No crop planted
-        SEEDS,       // Just planted
-        GROWING,     // In growth process
-        MATURE,      // Ready to harvest
-        WITHERED     // Crop has gone bad
+        EMPTY,
+        SEEDS,
+        GROWING,
+        MATURE,
     }
 
     public Crop(String name, double seedCost, double sellPrice, double growthTime) {

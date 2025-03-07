@@ -14,12 +14,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.geometry.Insets;
-
-
-
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+
+// waaayyy too much shit here :(
 
 public class GameController {
     private static final int GRID_SIZE = 5; // 5x5 grid
@@ -57,7 +56,7 @@ public class GameController {
 
     @FXML
     public void initialize() {
-        financeManager = new FinanceManager(500); // Starting balance
+        financeManager = new FinanceManager(200); // Starting balance
         inventory = new Inventory();
         store = new Store(financeManager);
         gridButtons = new Button[GRID_SIZE][GRID_SIZE];
@@ -101,19 +100,15 @@ public class GameController {
         PlotState state = plotStates.get(plotButton);
 
         if (state.crop == null) {
-            // Empty plot - show seed planting options
             showSeedPlantingOptions(plotButton, row, col);
         } else if (state.crop.isReadyToHarvest()) {
-            // Ready to harvest
             harvestCrop(plotButton, row, col);
         } else {
-            // Growing
             showMessage("Growing", "This crop is still growing. Please check back later.");
         }
     }
 
     private void showSeedPlantingOptions(Button plotButton, int row, int col) {
-        // Only show options if player has seeds
         Map<String, Integer> availableSeeds = inventory.getSeeds();
         if (availableSeeds.isEmpty()) {
             showMessage("No Seeds", "You don't have any seeds to plant. Visit the store to buy some.");
@@ -201,7 +196,6 @@ public class GameController {
             animalPens[i] = penButton;
         }
 
-        // Add button to buy more pens
         Button buyPenButton = new Button("Buy New Pen");
         buyPenButton.setPrefSize(100, 100);
         buyPenButton.setStyle("-fx-background-color: #FFCC99; -fx-border-color: #999999;");
@@ -218,7 +212,7 @@ public class GameController {
     }
 
     private void buyNewPen() {
-        double penCost = 100.0; // Cost to buy a new pen
+        double penCost = 50.0; // Cost to buy a new pen
 
         if (financeManager.canAfford(penCost)) {
             financeManager.deductMoney(penCost);
@@ -228,8 +222,6 @@ public class GameController {
 
             Button newPen = createAnimalPenButton("Empty Pen");
             newPens[animalPens.length] = newPen;
-
-            // Remove the buy button first
             animalPensGrid.getChildren().remove(animalPensGrid.lookup("Button[text=\"Buy New Pen\"]"));
 
             animalPensGrid.add(newPen, animalPens.length, 0);
@@ -253,7 +245,6 @@ public class GameController {
         if (animal == null) {
             showMessage("Empty Pen", "This pen is empty. Visit the animal shop to buy animals.");
         } else {
-            // Create options dialog
             Stage dialog = new Stage();
             dialog.initModality(Modality.APPLICATION_MODAL);
             dialog.setTitle(animal.getType() + " Options");
@@ -280,7 +271,6 @@ public class GameController {
                     (animal.isReadyToCollect() ? "Ready to collect" : "Not ready yet"));
 
             options.getChildren().addAll(statusLabel, collectButton, sellButton);
-
             Scene scene = new Scene(options);
             dialog.setScene(scene);
             dialog.showAndWait();
@@ -294,13 +284,10 @@ public class GameController {
         inventory.addAnimalProduct(productName, 1);
 
         showMessage("Collected Product", "You collected " + productName + " from your " + animal.getType() + "!");
-
-        // Update button color
         updateAnimalPenColor(penButton, animal);
     }
 
     private void sellAnimal(Button penButton, Animal animal) {
-        // Animal resale value is 80% of purchase price
         double sellValue = animal.getPurchaseCost() * 0.8;
 
         financeManager.addMoney(sellValue);
@@ -323,7 +310,6 @@ public class GameController {
     }
 
     public void addAnimalToPen(String animalType) {
-        // Find empty pen
         for (Button pen : animalPens) {
             if (inventory.getAnimal(pen) == null) {
                 Animal animal = new Animal(animalType, 0, 0, 0); // Values don't matter, just for display
@@ -350,9 +336,9 @@ public class GameController {
 
     private void updateAnimalPenColor(Button penButton, Animal animal) {
         if (animal.isReadyToCollect()) {
-            penButton.setStyle("-fx-background-color: #7CFC00; -fx-border-color: #999999;"); // Bright green for ready
+            penButton.setStyle("-fx-background-color: #7CFC00; -fx-border-color: #999999;");
         } else {
-            penButton.setStyle("-fx-background-color: #90EE90; -fx-border-color: #999999;"); // Light green for idle
+            penButton.setStyle("-fx-background-color: #90EE90; -fx-border-color: #999999;");
         }
     }
 
@@ -411,7 +397,6 @@ public class GameController {
 
     public void refreshGameState() {
         updateBalanceDisplay();
-
     }
 
     private void showMessage(String title, String message) {

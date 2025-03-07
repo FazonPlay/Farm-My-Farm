@@ -1,9 +1,5 @@
 package com.fazonplay.farmmyfarm.Models;
-
-import javafx.scene.control.Button;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Animal {
     private String type;
@@ -14,10 +10,8 @@ public class Animal {
     private AnimalState state;
 
     public enum AnimalState {
-        IDLE,       // Normal state
-        HUNGRY,     // Needs feeding
-        PRODUCING,  // In production process
-        READY       // Product ready to collect
+        IDLE,
+        READY
     }
 
     public Animal(String type, double purchaseCost, double productValue, double productionTime) {
@@ -41,7 +35,6 @@ public class Animal {
         state = AnimalState.IDLE;
     }
 
-    // Getters
     public String getType() { return type; }
     public double getPurchaseCost() { return purchaseCost; }
     public double getProductValue() { return productValue; }

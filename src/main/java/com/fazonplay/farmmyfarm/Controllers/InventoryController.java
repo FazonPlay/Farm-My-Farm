@@ -40,12 +40,10 @@ public class InventoryController {
     private void updateDisplay() {
         balanceLabel.setText(String.format("$%.2f", financeManager.getBalance()));
 
-        // Clear existing grid items
         clearGridRows(seedsGrid, 1);
         clearGridRows(cropsGrid, 1);
         clearGridRows(animalProductsGrid, 1);
 
-        // Populate Seeds Tab
         int seedRow = 1;
         for (Map.Entry<String, Integer> entry : inventory.getSeeds().entrySet()) {
             seedsGrid.add(new Label(entry.getKey()), 0, seedRow);
@@ -53,7 +51,6 @@ public class InventoryController {
             seedRow++;
         }
 
-        // Populate Crops Tab
         int cropRow = 1;
         for (Map.Entry<String, Integer> entry : inventory.getCrops().entrySet()) {
             String cropName = entry.getKey();
@@ -91,19 +88,14 @@ public class InventoryController {
 
             animalProductsGrid.add(sellButton, 3, productRow);
             productRow++;
-
-
-
         }
     }
 
     private void sellAnimalProduct(String productName) {
         if (inventory.getAnimalProducts().getOrDefault(productName, 0) > 0) {
-            // Remove from inventory
             inventory.getAnimalProducts().put(productName,
                     inventory.getAnimalProducts().get(productName) - 1);
 
-            // Add money to balance
             financeManager.addMoney(getAnimalProductPrice(productName));
 
             showMessage("Sale Successful", "You sold 1 " + productName + "!");

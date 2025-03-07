@@ -28,16 +28,10 @@ public class AnimalTimer {
                 Animal animal = entry.getValue();
 
                 if (animal != null && animal.isReadyToCollect()) {
-                    // Animal is ready to produce
                     animal.setState(Animal.AnimalState.READY);
-                    // Update UI
                     penButton.setStyle("-fx-background-color: #7CFC00; -fx-border-color: #999999;");
                 }
             }
         });
-    }
-
-    public void shutdown() {
-        scheduler.shutdown();
     }
 }

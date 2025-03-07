@@ -30,7 +30,6 @@ public class StoreController {
     private void updateDisplay() {
         balanceLabel.setText(String.format("$%.2f", financeManager.getBalance()));
 
-        // Update inventory display
         StringBuilder seedsText = new StringBuilder();
         Map<String, Integer> seeds = inventory.getSeeds();
 

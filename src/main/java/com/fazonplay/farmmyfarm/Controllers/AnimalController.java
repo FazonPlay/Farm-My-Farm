@@ -34,10 +34,8 @@ public class AnimalController {
     private void updateDisplay() {
         balanceLabel.setText(String.format("$%.2f", financeManager.getBalance()));
 
-        // Clear existing grid items
         animalsGrid.getChildren().clear();
 
-        // Headers
         animalsGrid.add(new Label("Animal Type"), 0, 0);
         animalsGrid.add(new Label("Cost"), 1, 0);
         animalsGrid.add(new Label("Product Value"), 2, 0);
