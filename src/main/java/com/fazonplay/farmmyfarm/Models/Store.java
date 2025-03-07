@@ -45,7 +45,7 @@ public class Store {
             return false;
         if(financeManager.canAfford(animal.getPurchaseCost())) {
             financeManager.deductMoney(animal.getPurchaseCost());
-            return true;
+            return true; 
         }
         return false;
     }

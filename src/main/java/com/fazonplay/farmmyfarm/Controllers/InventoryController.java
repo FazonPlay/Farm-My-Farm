@@ -62,9 +62,9 @@ public class InventoryController {
             Crop cropInfo = store.getAvailableSeeds().get(cropName);
             double sellPrice = cropInfo != null ? cropInfo.getSellPrice() : 0;
 
-            seedsGrid.add(new Label(cropName), 0, cropRow);
-            seedsGrid.add(new Label(Integer.toString(quantity)), 1, cropRow);
-            seedsGrid.add(new Label(String.format("$%.2f", sellPrice)), 2, cropRow);
+            cropsGrid.add(new Label(cropName), 0, cropRow);
+            cropsGrid.add(new Label(Integer.toString(quantity)), 1, cropRow);
+            cropsGrid.add(new Label(String.format("$%.2f", sellPrice)), 2, cropRow);
 
             Button sellButton = new Button("Sell");
             final String finalCropName = cropName;

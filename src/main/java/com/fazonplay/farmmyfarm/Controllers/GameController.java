@@ -16,6 +16,7 @@ import javafx.stage.Modality;
 import javafx.geometry.Insets;
 
 
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -56,7 +57,6 @@ public class GameController {
 
     @FXML
     public void initialize() {
-        // Initialize game components
         financeManager = new FinanceManager(500); // Starting balance
         inventory = new Inventory();
         store = new Store(financeManager);
@@ -67,7 +67,7 @@ public class GameController {
         // Add some seeds to inventory for testing
         inventory.addSeed("Wheat", 5);
 
-        // Setup grid
+        // Setup
         setupFarmGrid();
         updateBalanceDisplay();
         setupAnimalPens();
@@ -120,7 +120,6 @@ public class GameController {
             return;
         }
 
-        // Create a dialog with buttons for each seed type
         Stage dialog = new Stage();
         dialog.setTitle("Plant Seeds");
         dialog.initModality(Modality.APPLICATION_MODAL);
@@ -179,9 +178,8 @@ public class GameController {
         PlotState state = plotStates.get(plotButton);
         if (state.crop != null && state.crop.getState() == Crop.CropState.MATURE) {
             inventory.addCrop(state.crop.getName(), 1);
-            plotButton.setStyle("-fx-background-color: #cccccc; -fx-border-color: #999999;"); // Reset to empty
+            plotButton.setStyle("-fx-background-color: #cccccc; -fx-border-color: #999999;");
 
-            // Remove from growing crops map
             growingCrops.remove(plotButton);
 
             showMessage("Harvested", "You harvested a " + state.crop.getName() + "!");
@@ -225,21 +223,17 @@ public class GameController {
         if (financeManager.canAfford(penCost)) {
             financeManager.deductMoney(penCost);
 
-            // Create new array with one more slot
             Button[] newPens = new Button[animalPens.length + 1];
             System.arraycopy(animalPens, 0, newPens, 0, animalPens.length);
 
-            // Create and add new pen
             Button newPen = createAnimalPenButton("Empty Pen");
             newPens[animalPens.length] = newPen;
 
             // Remove the buy button first
             animalPensGrid.getChildren().remove(animalPensGrid.lookup("Button[text=\"Buy New Pen\"]"));
 
-            // Add the new pen
             animalPensGrid.add(newPen, animalPens.length, 0);
 
-            // Create a fresh buy button and add it
             Button buyPenButton = new Button("Buy New Pen");
             buyPenButton.setPrefSize(100, 100);
             buyPenButton.setStyle("-fx-background-color: #FFCC99; -fx-border-color: #999999;");
@@ -415,11 +409,9 @@ public class GameController {
         }
     }
 
-    // Method to be called from other controllers (like StoreController)
     public void refreshGameState() {
         updateBalanceDisplay();
 
-        // Could add more refresh logic here as game expands
     }
 
     private void showMessage(String title, String message) {
@@ -429,9 +421,4 @@ public class GameController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-//    public void shutdown() {
-//        if (growthTimer != null) {
-//            growthTimer.shutdown();
-//        }
-//    }
 }
